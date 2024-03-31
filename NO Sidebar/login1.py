@@ -28,11 +28,22 @@ def display_password(password):
     username = password[3]
     old_password = password[4]
     
+
+    
+    #Decryption to show useful data
+    website = encryptor.decrypt(website).decode()
+    username = encryptor.decrypt(username).decode()
+    old_password = encryptor.decrypt(old_password).decode()
+    
     st.subheader(f'Website: {website}')
     new_username = st.text_input(f"New Username: ", value=username,key=username_key)
     new_password = st.text_input(f"New Password: ", type="password", value=old_password,key=password_key)
     
     if st.button(f"Update Password for {website}",key=id):
+        website = encryptor.encrypt(website)
+        new_username = encryptor.encrypt(new_username)
+        new_password = encryptor.encrypt(new_password)
+        
         update_password(id,st.session_state.user[0], website, new_username, new_password)
         st.success(f"Password for {website} updated successfully!")
 
@@ -139,10 +150,21 @@ def login_panel():
             username = st.text_input("Username")
             password = st.text_input("Password", type="password")
             if st.button("Add"):
+                # Decode the data before storing it in the database i.e. b'website'
+
+                #Encrypting the data now
+                website = encrypt_data(website)
+                print(website)
+                username = encrypt_data(username)
+                password = encrypt_data(password)
+                # Decode the data before storing it in the database i.e. removing b''
+                website = website.decode()
+                username = username.decode()
+                password = password.decode()
+                
                 add_password(st.session_state.user[0], website, username, password)
                 st.success("Password added successfully!")
                 
-
         elif st.session_state.selected_option == "View Passwords":
             # st.subheader("View Passwords")
             passwords = get_passwords_by_user_id(st.session_state.user[0])

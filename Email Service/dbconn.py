@@ -24,8 +24,7 @@ def header():
     
     #Placing Header in first column taking 3/4 space
     with header_col:
-        st.header("Password Manager",divider='rainbow')
-    
+        st.header("Password Manager", divider='rainbow')
     #Placing Image in second column taking 1/4 space
     with image_col:
         st.image("images/locknobg.jpg",width=100)

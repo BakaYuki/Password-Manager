@@ -39,20 +39,20 @@ def display_password(password):
     new_password = st.text_input(f"New Password: ", type="password", value=old_password,key=password_key)
     
     if st.button(f"Update Password for {website}",key=id):
-       
+        
+        
         #Encrypting the data now
-        website1 = encrypt_data(website)
+        website = encrypt_data(website)
         # print(website)
         new_username = encrypt_data(new_username)
         new_password = encrypt_data(new_password)
                 
         # Decode the data before storing it in the database i.e. removing b''
-        website1 = website1.decode()
+        website = website.decode()
         new_username = new_username.decode()
         new_password = new_password.decode()
-
         
-        update_password(id,st.session_state.user[0], website1, new_username, new_password)
+        update_password(id,st.session_state.user[0], website, new_username, new_password)
         st.success(f"Password for {website} updated successfully!")
 
     if st.button(f"Delete Password for {website}",key=del_key):
@@ -95,6 +95,7 @@ def login_panel():
             st.session_state.selected_option = "Add Password"
 
         # Define buttons for different options
+        sm.getMenu
         option_buttons = {
             "Add Password": st.sidebar.button("Add Password"),
             "View Passwords": st.sidebar.button("View Passwords"),
